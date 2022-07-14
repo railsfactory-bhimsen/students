@@ -5,7 +5,7 @@ const students = [
     marks: {
       english: 100,
       science: 100,
-      social: 100
+      social: 39
     }
   },
   {
@@ -13,17 +13,17 @@ const students = [
     name: 'Bhimsen',
     marks: {
       english: 100,
-      science: 100,
-      social: 100
+      science: 41,
+      social: 50
     }
   },
   {
     id: 3,
-    name: 'Selva',
+    name: 'Tom',
     marks: {
       english: 100,
-      science: 100,
-      social: 100
+      science: 40,
+      social: 50
     }
   }
 ]
