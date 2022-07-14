@@ -1,16 +1,25 @@
 const students = [
   {
     id: 1,
-    name: 'Siva',
+    name: 'Adam',
     marks: {
       english: 100,
       science: 100,
-      social: 39
+      social: 50
     }
   },
   {
     id: 2,
-    name: 'Bhimsen',
+    name: 'Joe',
+    marks: {
+      english: 41,
+      science: 41,
+      social: 35
+    }
+  },
+  {
+    id: 3,
+    name: 'John',
     marks: {
       english: 100,
       science: 41,
@@ -18,11 +27,20 @@ const students = [
     }
   },
   {
-    id: 3,
+    id: 4,
+    name: 'Kia',
+    marks: {
+      english: 28,
+      science: 41,
+      social: 50
+    }
+  },
+  {
+    id: 5,
     name: 'Tom',
     marks: {
       english: 100,
-      science: 40,
+      science: 41,
       social: 50
     }
   }

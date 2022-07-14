@@ -3,7 +3,7 @@ const data = require('./data/students');
 const studentDetails = (student) => {
   const { english, science, social } = student.marks;
 
-  return `id: ${student.id}, name: ${student.name}, english: ${english}, science: ${science}, social: ${social}, total: ${student.totalMarks}, Result: ${student.isPassed ? "P" : "F"}`;
+  return `id: ${student.id}, name: ${student.name}, english: ${english}, science: ${science}, social: ${social}, total: ${student.totalMarks}, result: ${student.isPassed ? "P" : "F"}, Rank: ${student.rank || "F"}`;
 };
 
 const logResult = (result) => console.log(result);
@@ -22,8 +22,8 @@ const calculateTotal = (student) => {
   });
 };
 
-const processStudentMarks = () => {
-  return data
+const processStudentMarks = (studentMarks) => {
+  return studentMarks
     .map(calculateTotal)
     .map(computeResult);
 };
@@ -34,9 +34,21 @@ const printStudentDetails = (students) => {
     .map(logResult);
 };
 
+const assignRanks = (students) => {
+  const passedStudents = students.filter(student => student.isPassed );
+  const failedStudents = students.filter(student => !student.isPassed );
+
+  rankedPassedStudents = passedStudents
+    .sort((a,b) => b.totalMarks - a.totalMarks)
+    .map((student, index) => ({...student, rank: index + 1}));
+
+  return rankedPassedStudents.concat(failedStudents);
+};
+
 const main = () => {
-  const processedStudentsDetails = processStudentMarks();
-  return printStudentDetails(processedStudentsDetails);
+  const processedStudentsDetails = processStudentMarks(data);
+  const studentsWithRanks = assignRanks(processedStudentsDetails);
+  return printStudentDetails(studentsWithRanks);
 };
 
 main();
