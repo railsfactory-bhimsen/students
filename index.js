@@ -9,8 +9,9 @@ const student_details = (student) => {
 const logResult = (result) => console.log(result);
 
 const calculateTotal = (student) => {
-  student.totalMark = student.marks.english + student.marks.science + student.marks.social;
-  return student;
+  const marks = Object.values(student.marks);
+  const totalMark = marks.reduce((mark, acc) => mark + acc, 0);
+  return { ...student, totalMark };
 };
 
 const main = () => {
