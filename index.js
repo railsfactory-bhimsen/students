@@ -1,4 +1,4 @@
-const students = require('./data/students');
+const data = require('./data/students');
 
 const studentDetails = (student) => {
   const { english, science, social } = student.marks;
@@ -22,12 +22,21 @@ const calculateTotal = (student) => {
   });
 };
 
-const main = () => {
-  return students
+const processStudentMarks = () => {
+  return data
     .map(calculateTotal)
-    .map(computeResult)
+    .map(computeResult);
+};
+
+const printStudentDetails = (students) => {
+  return students
     .map(studentDetails)
     .map(logResult);
+};
+
+const main = () => {
+  const processedStudentsDetails = processStudentMarks();
+  return printStudentDetails(processedStudentsDetails);
 };
 
 main();
