@@ -1,44 +1,28 @@
 const data = require('./data/students');
 
-const studentDetails = (student) => {
-  const { english, science, social } = student.marks;
-
-  return {
-    id: student.id,
-    name: student.name,
-    english: english,
-    science: science,
-    social: social,
-    total: student.totalMarks,
-    result: student.isPassed ? "P" : "F",
-    rank: student.rank || "F"
-  };
+const capitalizeString = (text) => {
+  return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
-const logResult = (result) => console.log(result);
+const formatStudents = ({isPassed, marks, ...rest}) => {
+  const student = {...rest, result: isPassed ? 'Pass' : 'Fail'};
+  return Object.keys(student).reduce((acc, key) => {
+    acc[capitalizeString(key)] = student[key];
+    return acc;
+  } ,{});
+};
 
-const computeResult = (student) => {
+const computeMarks = (student) => {
   return ({
     ...student,
+    total: Object.values(student.marks).reduce((mark, acc) => mark + acc, 0),
     isPassed: Object.values(student.marks).every(mark => mark > 40)
   });
-}
-
-const calculateTotal = (student) => {
-  return ({
-    ...student,
-    totalMarks: Object.values(student.marks).reduce((mark, acc) => mark + acc, 0)
-  });
-};
-
-const processStudentMarks = (studentMarks) => {
-  return studentMarks
-    .map(calculateTotal)
-    .map(computeResult);
 };
 
 const printStudentDetails = (students) => {
-  console.table(students.map(studentDetails));
+  transformed = students.map(({marks, ...rest}) => ({ ...rest, ...marks })).map(formatStudents);
+  console.table(transformed);
 };
 
 const assignRanks = (students) => {
@@ -46,10 +30,14 @@ const assignRanks = (students) => {
   const failedStudents = students.filter(student => !student.isPassed );
 
   rankedPassedStudents = passedStudents
-    .sort((a,b) => b.totalMarks - a.totalMarks)
+    .sort((a,b) => b.total - a.total)
     .map((student, index) => ({...student, rank: index + 1}));
 
   return rankedPassedStudents.concat(failedStudents);
+};
+
+const processStudentMarks = (students) => {
+  return students.map(computeMarks);
 };
 
 const main = () => {
