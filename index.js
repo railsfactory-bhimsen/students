@@ -3,7 +3,6 @@ const data = require('./data/students');
 const studentDetails = (student) => {
   const { english, science, social } = student.marks;
 
-  // return `id: ${student.id}, name: ${student.name}, english: ${english}, science: ${science}, social: ${social}, total: ${student.totalMarks}, result: ${student.isPassed ? "P" : "F"}, rank: ${student.rank || "F"}`;
   return {
     id: student.id,
     name: student.name,
@@ -39,9 +38,6 @@ const processStudentMarks = (studentMarks) => {
 };
 
 const printStudentDetails = (students) => {
-  // students
-  //   .map(studentDetails)
-  //   .map(logResult);
   console.table(students.map(studentDetails));
 };
 
